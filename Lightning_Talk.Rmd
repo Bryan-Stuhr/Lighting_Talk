@@ -109,5 +109,7 @@ all_nhl %>%
 
 ## Citations & Next Steps
 
-- NHLData R package — citation here
-- GitHub: your link here
+- Sweet, D.L. (2017). NHLData: Scores for Every Season Since the Founding of the NHL in 1917. 
+- R package version 1.0.0. https://CRAN.R-project.org/package=NHLData
+
+- https://github.com/Bryan-Stuhr/Lighting_Talk/tree/master

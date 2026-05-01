@@ -1,0 +1,67 @@
+---
+title: "NHLData Vignette"
+author: "Bryan Stuhr"
+output: html_document
+---
+
+## Introduction
+
+The `NHLData` package contains scores for every NHL game since the league 
+was founded in 1917. This vignette walks through how to install the package, 
+load the data, and explore it with some basic examples.
+
+## Installation
+
+```{r eval=FALSE}
+install.packages("NHLData")
+```
+
+## Loading the Data
+
+```{r message=FALSE, warning=FALSE}
+library(NHLData)
+library(tidyverse)
+
+data(list = data(package = "NHLData")$results[, "Item"])
+sch_names <- ls(pattern = "^Sch")
+all_nhl <- bind_rows(mget(sch_names))
+```
+
+## What Does the Data Look Like?
+
+```{r}
+glimpse(all_nhl)
+```
+
+## Example 1 - Average Goals Per Game Over Time
+
+```{r message=FALSE, warning=FALSE}
+all_nhl %>%
+  mutate(Year = year(Date)) %>%
+  filter(!is.na(GF), !is.na(GA)) %>%
+  group_by(Year) %>%
+  summarise(avg_goals = mean(GF + GA, na.rm = TRUE)) %>%
+  ggplot(aes(x = Year, y = avg_goals)) +
+  geom_line(color = "steelblue") +
+  labs(title = "Average Goals Per Game Over NHL History",
+       x = "Year", y = "Average Total Goals")
+```
+
+## Example 2 - Home vs Away Scoring
+
+```{r message=FALSE, warning=FALSE}
+all_nhl %>%
+  filter(!is.na(GF), !is.na(GA)) %>%
+  summarise(Home = mean(GF), Away = mean(GA)) %>%
+  pivot_longer(everything(), names_to = "Location", values_to = "Avg_Goals") %>%
+  ggplot(aes(x = Location, y = Avg_Goals, fill = Location)) +
+  geom_col(width = 0.5) +
+  labs(title = "Home vs Away Scoring Across NHL History",
+       x = "", y = "Average Goals Per Game")
+```
+
+## Citation
+
+Sweet, D.L. (2017). NHLData: Scores for Every Season Since the Founding 
+of the NHL in 1917. R package version 1.0.0. 
+https://CRAN.R-project.org/package=NHLData
