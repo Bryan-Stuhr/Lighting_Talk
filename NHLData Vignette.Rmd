@@ -13,6 +13,8 @@ load the data, and explore it with some basic examples.
 The examples in this vignette were written independently using the NHLData package documentation as a reference. 
 The plot code and analysis are original work.
 
+## Installation
+
 ```{r eval=FALSE}
 install.packages("NHLData")
 ```
