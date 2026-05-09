@@ -10,7 +10,7 @@ The `NHLData` package contains scores for every NHL game since the league
 was founded in 1917. This vignette walks through how to install the package, 
 load the data, and explore it with some basic examples.
 
-## Installation
+The examples in this vignette were written independently using the NHLData package documentation as a refrence. The plot code and analysis are orginial work
 
 ```{r eval=FALSE}
 install.packages("NHLData")
